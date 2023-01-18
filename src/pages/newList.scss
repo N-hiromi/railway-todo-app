@@ -1,0 +1,36 @@
+@charset "utf-8";
+$white: #ffffff;
+.new-list {
+  margin-left: 5%;
+
+  .new-list-form {
+    color: #555555;
+  }
+
+  .new-list-title {
+    width: 300px;
+    margin-bottom: 25px;
+  }
+
+  .new-list-button {
+    background-color: #242F9B;
+    color: $white;
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  /* 320pxまでの幅の場合に適応される */
+  .new-list {
+    margin: 0 auto;
+    padding: 0 20px;
+    .new-list-title {
+      width: 100%;
+    }
+    .button {
+      text-align: right;
+    }
+  }
+}

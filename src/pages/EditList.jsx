@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "../components/Header";
 import { url } from "../const";
-import "./editList.css";
+import "./editList.scss";
 
-export const EditList = () => {
-  const history = useHistory();
+export function EditList() {
+  const nav = useNavigate();
   const { listId } = useParams();
   const [title, setTitle] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -15,7 +15,7 @@ export const EditList = () => {
   const handleTitleChange = (e) => setTitle(e.target.value);
   const onUpdateList = () => {
     const data = {
-      title: title
+      title
     }
 
     axios.put(`${url}/lists/${listId}`, data, {
@@ -24,7 +24,7 @@ export const EditList = () => {
       }
     })
     .then(() => {
-      history.push("/");
+      nav("/");
     })
     .catch((err) => {
     setErrorMessage(`更新に失敗しました。 ${err}`);
@@ -38,7 +38,7 @@ export const EditList = () => {
       }
     })
     .then(() => {
-      history.push("/");
+      nav("/");
     })
     .catch((err) => {
       setErrorMessage(`削除に失敗しました。${err}`);
@@ -69,8 +69,10 @@ export const EditList = () => {
         <form className="edit-list-form">
           <label>タイトル</label><br />
           <input type="text" className="edit-list-title" value={title} onChange={handleTitleChange} /><br />
+          <div className="button">
           <button type="button" className="delete-list-button" onClick={onDeleteList}>削除</button>
           <button type="button" className="edit-list-button" onClick={onUpdateList}>更新</button>
+          </div>
         </form>
       </main>
     </div>

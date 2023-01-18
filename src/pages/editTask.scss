@@ -1,0 +1,50 @@
+@charset "utf-8";
+$white: #ffffff;
+$red: #ff3333;
+.edit-task {
+  margin-left: 5%;
+
+  .edit-task-form {
+    color: #555555;
+  }
+
+  .edit-task-title, .edit-task-detail {
+    width: 300px;
+    margin-bottom: 25px;
+  }
+
+  .delete-task-button {
+    color: $red;
+    border: solid 1px $red;
+    width: 80px;
+    height: 40px;
+    margin: 25px 5px;
+    border-radius: 5px;
+  }
+
+  .edit-task-button {
+    background-color: #242F9B;
+    color: $white;
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+  }
+  
+  .error-message {
+    color: $red;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  /* 320pxまでの幅の場合に適応される */
+  .edit-task {
+    margin: 0 auto;
+    padding: 0 20px;
+    .edit-task-title, .edit-task-detail {
+      width: 100%;
+    }
+    .button {
+      text-align: right;
+    }
+  }
+}

@@ -2,14 +2,14 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Redirect } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { signIn } from "../authSlice";
 import { Header } from "../components/Header";
 import { url } from "../const";
-import "./signUp.css";
+import "./signUp.scss";
 
-export const SignUp = () => {
-  const history = useHistory();
+export function SignUp() {
+  const nav = useNavigate();
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -22,23 +22,25 @@ export const SignUp = () => {
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const onSignUp = () => {
     const data = {
-      email: email,
-      name: name,
-      password: password
+      email,
+      name,
+      password
     };
 
     axios.post(`${url}/users`, data)
       .then((res) => {
-        const token = res.data.token;
+        console.log(res);
+        const {token} = res.data;
         dispatch(signIn());
         setCookie("token", token);
-        history.push("/");
+        nav("/");
       })
       .catch((err) => {
         setErrorMessge(`サインアップに失敗しました。 ${err}`);
+        console.log(err.message);
       })
 
-      if(auth) return <Redirect to="/" />
+      if(auth) return <Navigate to="/" />
   }
   return (
     <div>

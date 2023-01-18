@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
-import { useHistory } from "react-router-dom";
 import { url } from "../const";
-import "./newList.css";
+import "./newList.scss";
 
-export const NewList = () => {
+export function NewList() {
   const [cookies] = useCookies();
-  const history = useHistory();
+  const nav = useNavigate();
   const [title, setTitle] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const handleTitleChange = (e) => setTitle(e.target.value);
   const onCreateList = () => {
     const data = {
-      title: title
+      title
     }
 
     axios.post(`${url}/lists`, data, {
@@ -23,7 +23,7 @@ export const NewList = () => {
       }
     })
     .then(() => {
-      history.push("/");
+      nav("/");
     })
     .catch((err) => {
       setErrorMessage(`リストの作成に失敗しました。${err}`);
@@ -39,7 +39,9 @@ export const NewList = () => {
         <form className="new-list-form">
           <label>タイトル</label><br />
           <input type="text" onChange={handleTitleChange} className="new-list-title" /><br />
+          <div className="button">
           <button type="button" onClick={onCreateList} className="new-list-button">作成</button>
+          </div>
         </form>
       </main>
     </div>
